@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\todo;
+use App\Models\lifehub;
 use Illuminate\Http\Request;
 
-class TodoController extends Controller
+class LifehubController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class TodoController extends Controller
     public function index()
     {
         //
-        return response()->json(data: todo::all());
+        return response()->json(data: lifehub::all());
     }
 
     /**
@@ -29,10 +29,10 @@ class TodoController extends Controller
             'tanggal' => 'required|date',
         ]);
 
-        $todo = Todo::create($request->all());
+        $lifehub = lifehub::create($request->all());
         return response()->json([
-            'message' => 'Todo created successfully',
-            'todo' => $todo
+            'message' => 'Lifehub created successfully',
+            'lifehub' => $lifehub,
         ], 201);
     }
 
@@ -42,14 +42,14 @@ class TodoController extends Controller
     public function show(string $id)
     {
         //
-        $todo = Todo::find($id);
+         $lifehub = lifehub::find($id);
 
-        if (!$todo) {
-            return response()->json(['message' => 'Todo not found'], 404);
+        if (!$lifehub) {
+            return response()->json(['message' => 'lifehub not found'], 404);
         }
 
         return response()->json([
-            'data' => $todo
+            'data' => $lifehub
         ], 200);
     }
 
@@ -59,10 +59,9 @@ class TodoController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $lifehub = lifehub::find($id);
 
-        $todo = Todo::find($id);
-
-        if (!$todo) {
+        if (!$lifehub) {
             return response()->json(['message' => 'Todo not found'], 404);
         }
 
@@ -72,10 +71,10 @@ class TodoController extends Controller
             'tanggal' => 'required|date',
         ]);
 
-        $todo->update($request->all());
+        $lifehub->update($request->all());
         return response()->json([
             'message' => 'Todo updated successfully',
-            'todo' => $todo
+            'todo' => $lifehub
         ], 200);
     }
 
@@ -85,13 +84,13 @@ class TodoController extends Controller
     public function destroy(string $id)
     {
         //
-        $todo = Todo::find($id);
+        $lifehub = lifehub::find($id);
 
-        if (!$todo) {
+        if (!$lifehub) {
             return response()->json(['message' => 'Todo not found'], 404);
         }
 
-        $todo->delete();
+        $lifehub->delete();
         return response()->json([
             'message' => 'Todo deleted successfully'
         ], 200);
